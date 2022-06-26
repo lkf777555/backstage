@@ -12,9 +12,7 @@
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
-          <el-icon>
-            <svg-icon icon="user"></svg-icon>
-          </el-icon>
+          <el-icon> <svg-icon icon="user"></svg-icon></el-icon>
         </span>
         <el-input v-model="loginForm.username" />
       </el-form-item>
@@ -35,18 +33,27 @@
         class="login-button"
         type="primary"
         @click="handleLoginSubmit(LoginForm)"
+        :loading="loadinging"
         >登录</el-button
       >
     </el-form>
+    <div class="text">
+      <p>1. 超级管理员账号： super-admin</p>
+      <p>2. 管理员账号：admin</p>
+      <p>3. 测试可配置账号：test</p>
+      <p>密码统一为：123456</p>
+      <p>注意：导入用户区分中英文库！！！！</p>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { login } from '../../api/user'
 import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
 
 const inputType = ref('password')
-
+const loadinging = ref(false)
 const loginForm = reactive({
   username: 'admin',
   password: '123456'
@@ -70,10 +77,17 @@ const loginRules = reactive({
 })
 
 const passwordIconStatus = computed(() => {
+  // 使用计算属性判断密码类型是否闭眼
   return inputType.value === 'password' ? 'eye' : 'eye-open'
 })
 
 const handleLoginSubmit = async (formName) => {
+  loadinging.value = true // loading 开启
+  await login(loginForm)
+  loadinging.value = false // loading 请求成功关闭
+  const token = loginForm.password
+  localStorage.setItem('token', token) // 存储token
+  console.log(token)
   if (!formName) return
   await formName.validate((valid) => {
     if (valid) {
@@ -81,8 +95,8 @@ const handleLoginSubmit = async (formName) => {
     }
   })
 }
-
 const handllePassWordStatus = () => {
+  // 点击判断密码类型
   inputType.value = inputType.value === 'password' ? 'text' : 'password'
 }
 </script>
@@ -178,6 +192,17 @@ $cursor: #fff;
     .login-button {
       width: 100%;
       margin-bottom: 30px;
+    }
+  }
+  .text {
+    width: 520px;
+    position: absolute;
+    left: 30%;
+    margin-left: -260px;
+    top: 220px;
+    color: white;
+    p {
+      margin-top: 10px;
     }
   }
 }
