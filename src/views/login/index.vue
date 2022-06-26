@@ -47,6 +47,7 @@
 </template>
 
 <script setup>
+import { login } from '../../api/login'
 import { reactive, ref } from 'vue'
 import { validatePassword } from './rule'
 import { Avatar, Search, View, Hide } from '@element-plus/icons-vue'
@@ -76,6 +77,7 @@ const loginRules = reactive({
 })
 
 const handleLoginSubmit = async (formName) => {
+  login(loginForm)
   if (!formName) return
   await formName.validate((valid) => {
     if (valid) {
