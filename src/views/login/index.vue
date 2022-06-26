@@ -51,9 +51,10 @@
 import { login } from '../../api/user'
 import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
-
-const inputType = ref('password')
-const loadinging = ref(false)
+import { useRouter } from 'vue-router'
+const router = useRouter() // 引入路由
+const inputType = ref('password') // 密码类型
+const loadinging = ref(false) // 默认不加载
 const loginForm = reactive({
   username: 'admin',
   password: '123456'
@@ -85,9 +86,7 @@ const handleLoginSubmit = async (formName) => {
   loadinging.value = true // loading 开启
   await login(loginForm)
   loadinging.value = false // loading 请求成功关闭
-  const token = loginForm.password
-  localStorage.setItem('token', token) // 存储token
-  console.log(token)
+  router.push('/user')
   if (!formName) return
   await formName.validate((valid) => {
     if (valid) {
