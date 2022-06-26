@@ -8,33 +8,28 @@
     >
       <div class="title-container">
         <h3 class="title">用户登录</h3>
-        <span class="icon">中英切换</span>
+        <svg-icon className="svg-language" icon="language"></svg-icon>
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
           <el-icon>
-            <avatar />
+            <svg-icon icon="user"></svg-icon>
           </el-icon>
         </span>
         <el-input v-model="loginForm.username" />
       </el-form-item>
       <el-form-item prop="password">
-        <el-input :type="inputType" v-model="loginForm.password">
-          <template #prefix>
-            <el-icon class="el-input__icon"><search /></el-icon>
-          </template>
-        </el-input>
-        <div class="off">
-          <el-icon
-            v-if="inputType === 'password'"
-            @click="handoff"
-            class="el-input__icon"
-            ><Hide
-          /></el-icon>
-          <el-icon v-else @click="handoff" class="el-input__icon"
-            ><View
-          /></el-icon>
-        </div>
+        <span class="svg-container">
+          <el-icon>
+            <svg-icon icon="password"></svg-icon>
+          </el-icon>
+        </span>
+        <el-input :type="inputType" v-model="loginForm.password"></el-input>
+        <span class="svg-pwd" @click="handllePassWordStatus">
+          <el-icon>
+            <svg-icon :icon="passwordIconStatus"></svg-icon>
+          </el-icon>
+        </span>
       </el-form-item>
       <el-button
         class="login-button"
@@ -47,14 +42,11 @@
 </template>
 
 <script setup>
-import { login } from '../../api/login' // 引入登录接口
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
-import { Avatar, Search, View, Hide } from '@element-plus/icons-vue'
 
 const inputType = ref('password')
 
-// 登录验证
 const loginForm = reactive({
   username: 'admin',
   password: '123456'
@@ -77,8 +69,11 @@ const loginRules = reactive({
   ]
 })
 
+const passwordIconStatus = computed(() => {
+  return inputType.value === 'password' ? 'eye' : 'eye-open'
+})
+
 const handleLoginSubmit = async (formName) => {
-  login(loginForm)
   if (!formName) return
   await formName.validate((valid) => {
     if (valid) {
@@ -87,7 +82,7 @@ const handleLoginSubmit = async (formName) => {
   })
 }
 
-const handoff = () => {
+const handllePassWordStatus = () => {
   inputType.value = inputType.value === 'password' ? 'text' : 'password'
 }
 </script>
@@ -124,6 +119,16 @@ $cursor: #fff;
         vertical-align: middle;
         display: inline-block;
       }
+
+      .svg-pwd {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        font-size: 16px;
+        color: $dark_gray;
+        cursor: pointer;
+        user-select: none;
+      }
     }
 
     ::v-deep .el-input {
@@ -158,12 +163,15 @@ $cursor: #fff;
         font-weight: bold;
         margin-bottom: 40px;
       }
-      .icon {
+      ::v-deep .svg-language {
         position: absolute;
-        top: 0;
+        top: 4px;
         right: 0;
-        color: $light_gray;
+        background-color: #fff;
         font-size: 22px;
+        padding: 4px;
+        border-radius: 4px;
+        cursor: pointer;
       }
     }
 
@@ -171,12 +179,6 @@ $cursor: #fff;
       width: 100%;
       margin-bottom: 30px;
     }
-  }
-  .off {
-    color: white;
-    position: absolute;
-    top: 8px;
-    right: 20px;
   }
 }
 </style>
