@@ -6,6 +6,6 @@ import md5 from 'md5'
  * @method
  */
 export const login = (model) => {
-  model.password = md5(model.password)
+  model.password = md5(model.password) // md5
   return request.post('/sys/login', model)
 }

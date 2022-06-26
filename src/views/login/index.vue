@@ -47,13 +47,14 @@
 </template>
 
 <script setup>
-import { login } from '../../api/login'
+import { login } from '../../api/login' // 引入登录接口
 import { reactive, ref } from 'vue'
 import { validatePassword } from './rule'
 import { Avatar, Search, View, Hide } from '@element-plus/icons-vue'
 
 const inputType = ref('password')
 
+// 登录验证
 const loginForm = reactive({
   username: 'admin',
   password: '123456'
