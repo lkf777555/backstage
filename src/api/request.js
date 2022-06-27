@@ -1,13 +1,16 @@
 import axios from 'axios'
 import md5 from 'md5'
 import { ElMessage } from 'element-plus'
+import loading from '../utils/loading'
 
 const http = axios.create({
-  baseURL: 'https://imooc-admin.lgdsunday.club/prod-api'
+  baseURL: process.env.VUE_APP_BASE_API,
+  timeout: 5000
 })
 // 请求拦截器
 http.interceptors.request.use(
   function (config) {
+    loading.open()
     const { icode, time } = getTestICode()
     config.headers.icode = icode
     config.headers.codeType = time
@@ -15,7 +18,7 @@ http.interceptors.request.use(
   },
   function (error) {
     // 对请求错误做些什么
-
+    loading.close()
     return Promise.reject(error)
   }
 )
@@ -23,6 +26,7 @@ http.interceptors.request.use(
 // 响应拦截器
 http.interceptors.response.use(
   (res) => {
+    loading.close()
     if (res.data.success === true) {
       ElMessage({
         message: '登录成功',

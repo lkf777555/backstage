@@ -9,3 +9,5 @@ export const login = (model) => {
   model.password = md5(model.password) // md5
   return request.post('/sys/login', model)
 }
+
+export default { login }

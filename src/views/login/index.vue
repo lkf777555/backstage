@@ -53,6 +53,7 @@ import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+
 const router = useRouter() // 引入路由
 const inputType = ref('password') // 密码类型
 const loadinging = ref(false) // 默认不加载
@@ -83,7 +84,7 @@ const passwordIconStatus = computed(() => {
   return inputType.value === 'password' ? 'eye' : 'eye-open'
 })
 
-const handleLoginSubmit = async (formName) => {
+const handleLoginSubmit = async () => {
   if (loginForm.username === 'admin' && loginForm.password === '123456') {
     router.push('/user')
   } else {
@@ -92,13 +93,6 @@ const handleLoginSubmit = async (formName) => {
   loadinging.value = true // loading 开启
   await login(loginForm)
   loadinging.value = false // loading 请求成功关闭
-
-  if (!formName) return
-  await formName.validate((valid) => {
-    if (valid) {
-      alert('登录')
-    }
-  })
 }
 const handllePassWordStatus = () => {
   // 点击判断密码类型
