@@ -87,7 +87,6 @@ const handleLoginSubmit = async (formName) => {
   loadinging.value = false // loading 请求成功关闭
   const token = loginForm.password
   localStorage.setItem('token', token) // 存储token
-  console.log(token)
   if (!formName) return
   await formName.validate((valid) => {
     if (valid) {
