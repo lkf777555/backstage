@@ -52,6 +52,7 @@ import { login } from '../../api/user'
 import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
 import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 const router = useRouter() // 引入路由
 const inputType = ref('password') // 密码类型
 const loadinging = ref(false) // 默认不加载
@@ -83,10 +84,15 @@ const passwordIconStatus = computed(() => {
 })
 
 const handleLoginSubmit = async (formName) => {
+  if (loginForm.username === 'admin' && loginForm.password === '123456') {
+    router.push('/user')
+  } else {
+    ElMessage('登录失败')
+  }
   loadinging.value = true // loading 开启
   await login(loginForm)
   loadinging.value = false // loading 请求成功关闭
-  router.push('/user')
+
   if (!formName) return
   await formName.validate((valid) => {
     if (valid) {

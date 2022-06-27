@@ -30,8 +30,6 @@ http.interceptors.response.use(
       })
       const { token } = res.data.data
       localStorage.setItem('token', token)
-    } else if (res.data.success === false) {
-      ElMessage('登录失败')
     }
     return res
   },
