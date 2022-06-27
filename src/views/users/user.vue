@@ -14,10 +14,11 @@
           active-text-color="#ffd04b"
           background-color="#304156"
           class="el-menu-vertical-demo"
-          default-active="2"
           text-color="#fff"
+          unique-opened
+          router
         >
-          <el-menu-item index="1">
+          <el-menu-item index="/profile">
             <el-icon><User /></el-icon>
             <span>个人中心</span>
           </el-menu-item>
@@ -64,7 +65,25 @@
           </el-sub-menu>
         </el-menu></el-aside
       >
-      <el-main><p @click="switchs" class="switchs">|||</p></el-main>
+      <el-main>
+        <!-- 顶部部分 -->
+        <div class="herad">
+          <el-icon size="28px" v-if="!isCollapse" @click="isCollapse = true">
+            <Fold
+          /></el-icon>
+          <el-icon size="28px" v-else @click="isCollapse = false"
+            ><Expand
+          /></el-icon>
+        </div>
+
+        <div class="viees">
+          <!-- 面包屑 -->
+        </div>
+        <div class="views">
+          <!-- routevivew -->
+          <router-view></router-view>
+        </div>
+      </el-main>
     </el-container>
   </div>
 </template>
@@ -72,6 +91,8 @@
 <script setup>
 import {
   Tickets,
+  Fold,
+  Expand,
   User,
   Histogram,
   Lollipop,
@@ -81,10 +102,6 @@ import {
 import { ref } from 'vue'
 
 const isCollapse = ref(false)
-
-const switchs = () => {
-  isCollapse.value = !isCollapse.value
-}
 </script>
 
 <style lang="scss" scoped>
@@ -116,6 +133,28 @@ const switchs = () => {
   }
   b {
     margin-left: 10px;
+  }
+}
+.el-main {
+  padding: 0px;
+  margin: 0px;
+  .herad {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border: rgb(240, 245, 245) solid 1px;
+  }
+  .views {
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+    background: #fbfbfb;
+  }
+  .viees {
+    width: 100%;
+    height: 32px;
+    background: rgb(137, 216, 238);
   }
 }
 </style>

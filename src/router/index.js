@@ -9,7 +9,14 @@ const publicRoutes = [
   {
     path: '/user', // 用户页面
     name: 'user',
-    component: () => import('../views/users/user')
+    component: () => import('../views/users/user'),
+    children: [
+      {
+        path: '/profile', // 登录页面
+        name: 'profile',
+        component: () => import('../views/users/profile')
+      }
+    ]
   }
 ]
 
