@@ -8,16 +8,8 @@ const publicRoutes = [
     component: () => import('../views/login')
   },
   {
-    path: '/user', // 用户模块
-    name: 'user',
-    component: () => import('../views/users/user'),
-    children: [
-      {
-        path: '/profile', // 个人中心
-        name: 'profile',
-        component: () => import('../views/users/profile')
-      }
-    ]
+    path: '/',
+    component: () => import('../layout')
   }
 ]
 

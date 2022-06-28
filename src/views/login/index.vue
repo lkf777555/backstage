@@ -45,10 +45,9 @@
 import util from '../../utils/util'
 import { reactive, ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import { validatePassword } from './rule'
 import { useRouter } from 'vue-router'
+import { validatePassword } from './rule'
 import md5 from 'md5'
-import { ElMessage } from 'element-plus'
 
 const store = useStore()
 const router = useRouter()
@@ -86,23 +85,21 @@ const passwordIconStatus = computed(() => {
  * 登录方式
  */
 const handleLoginSubmit = async () => {
-  router.push('/user')
-  ElMessage({
-    message: '登录成功',
-    type: 'success'
-  })
   if (!LoginForm.value) return
   await LoginForm.value.validate(async (valid) => {
     if (valid) {
       const newLoginForm = util.deepCopy(loginForm)
       newLoginForm.password = md5(newLoginForm.password)
-      store.dispatch('user/login', newLoginForm)
+
+      const response = await store.dispatch('user/login', newLoginForm)
+      console.log(response)
+      if (response.token) router.push('/')
     }
   })
 }
 
 /**
- * 密码框状态切换
+ * 密码框状态切换方法
  */
 const handllePassWordStatus = () => {
   inputType.value = inputType.value === 'password' ? 'text' : 'password'
