@@ -1,5 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '../layout'
+
+// 一级路由 最外层的路由 /login /user /article /
+// 要想拿到所有的字路由, 就必须先拿所有一级的路由的children (所有的子数据在一级的children里面)
+
 // 公有路由表
 const publicRoutes = [
   {
@@ -44,7 +48,7 @@ const publicRoutes = [
   }
 ]
 
-// 私有路由
+// 私有路由表
 const privateRoutes = [
   {
     path: '/user',
@@ -131,6 +135,7 @@ const privateRoutes = [
     ]
   }
 ]
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [...publicRoutes, ...privateRoutes]

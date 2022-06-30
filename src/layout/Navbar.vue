@@ -1,6 +1,6 @@
 <template>
   <div class="navbar clearfix">
-    <div class="navbar-left">left</div>
+    <div class="navbar-left">图标</div>
     <div class="navbar-right">
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
