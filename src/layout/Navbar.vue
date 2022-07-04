@@ -4,22 +4,28 @@
       <Hamburger class="hamburger-container"></Hamburger>
       <Breadcrumb></Breadcrumb>
     </div>
-    <div class="navbar-right">
-      <Screenfull></Screenfull>
-      <el-dropdown trigger="click" @command="handleCommand">
-        <span class="el-dropdown-link">
-          <el-avatar shape="square" :size="40" :src="avatarUrl" />
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="home">首页</el-dropdown-item>
-            <el-dropdown-item command="profile">课程主页</el-dropdown-item>
-            <el-dropdown-item command="logout" divided
-              >退出登录</el-dropdown-item
-            >
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+    <div class="clo">
+      <div class="dv">盒子</div>
+      <div class="dv">盒子</div>
+      <div class="dv"><Screenfull></Screenfull></div>
+      <div class="dv">盒子</div>
+      <div class="dv">盒子</div>
+      <div class="navbar-right">
+        <el-dropdown trigger="click" @command="handleCommand">
+          <span class="el-dropdown-link">
+            <el-avatar shape="square" :size="40" :src="avatarUrl" />
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="home">首页</el-dropdown-item>
+              <el-dropdown-item command="profile">课程主页</el-dropdown-item>
+              <el-dropdown-item command="logout" divided
+                >退出登录</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
     </div>
   </div>
 </template>
@@ -64,6 +70,18 @@ const handleLogout = async () => {
 </script>
 
 <style lang="scss" scoped>
+.clo {
+  width: 240px;
+  height: 50px;
+  display: flex;
+  float: right;
+  align-items: center;
+  justify-content: space-around;
+  .dv {
+    width: 35px;
+    height: 100%;
+  }
+}
 .navbar {
   height: 50px;
   line-height: 50px;
