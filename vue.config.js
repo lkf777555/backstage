@@ -8,7 +8,7 @@ module.exports = defineConfig({
   publicPath: './',
   devServer: {
     open: true,
-    port: 8888,
+    port: 9999,
     https: false,
     host: 'localhost',
     proxy: {
@@ -24,7 +24,10 @@ module.exports = defineConfig({
   lintOnSave: true,
   chainWebpack(config) {
     // 设置 svg-sprite-loader
-    config.module.rule('svg').exclude.add(resolve('src/icons')).end()
+    config.module
+      .rule('svg')
+      .exclude.add(resolve('src/icons'))
+      .end()
     config.module
       .rule('icons')
       .test(/\.svg$/)

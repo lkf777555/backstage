@@ -10,10 +10,10 @@ import SidebarMenu from './SidebarMenu'
 </script>
 
 <style lang="scss" scoped>
-.sidebar-title {
-  text-align: center;
-  padding: 15px 0;
-  font-size: 22px;
-  color: #fff;
+.sidebar-title{
+  text-align : center;
+  padding : 15px 0;
+  font-size : 22px;
+  color : #fff;
 }
 </style>

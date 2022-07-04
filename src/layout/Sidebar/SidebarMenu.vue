@@ -24,6 +24,7 @@ import SidebarMenuItem from './SidebarMenuItem'
 
 const router = useRouter()
 
+// 获取路由表的所有数据
 console.log('routes=>', router.getRoutes())
 
 const menuList = computed(() => {
@@ -32,4 +33,8 @@ const menuList = computed(() => {
 })
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.el-menu {
+  border-right: none;
+}
+</style>

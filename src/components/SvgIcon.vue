@@ -1,10 +1,6 @@
 <template>
   <!-- 展示svg在线图标 -->
-  <div
-    v-if="isExternal"
-    class="svg-icon svg-external-icon"
-    :style="styleExternalIcon"
-  ></div>
+  <div v-if="isExternal" class="svg-icon svg-external-icon" :style="styleExternalIcon"></div>
   <!-- 展示svg本地图标 -->
   <svg v-else class="svg-icon" :class="[props.className]" aria-hidden="true">
     <use :xlink:href="iconName" />
@@ -40,10 +36,11 @@ const isExternal = computed(() => {
 const iconName = computed(() => {
   return `#icon-${props.icon}`
 })
+
 </script>
 
 <style scoped>
-.svg-icon {
+.svg-icon{
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;

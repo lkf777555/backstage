@@ -1,7 +1,11 @@
 <template>
   <div class="navbar clearfix">
-    <div class="navbar-left">图标</div>
+    <div class="navbar-left">
+      <Hamburger class="hamburger-container"></Hamburger>
+      <Breadcrumb></Breadcrumb>
+    </div>
     <div class="navbar-right">
+      <Screenfull></Screenfull>
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
           <el-avatar shape="square" :size="40" :src="avatarUrl" />
@@ -24,6 +28,9 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import Breadcrumb from '../components/Breadcrumb'
+import Hamburger from '../components/Hamburger'
+import Screenfull from '../components/Screenfull'
 const store = useStore()
 const router = useRouter()
 
@@ -64,7 +71,7 @@ const handleLogout = async () => {
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  padding: 0 20px;
+  padding: 0 20px 0 0;
 
   .navbar-left {
     float: left;
@@ -79,6 +86,10 @@ const handleLogout = async () => {
 
   .el-avatar {
     background: none;
+  }
+
+  .hamburger-container {
+    float: left;
   }
 }
 </style>
